@@ -7,19 +7,19 @@ with open("data.txt", "w") as f:
         f.write(" ".join(map(str, row)) + "\n")
 
 def create_mapping(manager_list):
-    # Процес A створює відображення
+    # Process A: read data from file into shared list
     with open('data.txt', 'r') as f:
         array = [list(map(int, line.split())) for line in f]
     manager_list[:] = array
 
 def sort_array(manager_list):
-    # Процес B сортує масив
+    # Process B: sort the array
     flattened = [item for sublist in manager_list for item in sublist]
     flattened.sort()
     manager_list[:] = [flattened[i:i+12] for i in range(0, len(flattened), 12)]
 
 def display_array(manager_list):
-    # Процес C виводить масив на екран
+    # Process C: display the array
     for i in range(12):
         for j in range(12):
             print(f"{manager_list[i][j]:>2}", end=" ")
